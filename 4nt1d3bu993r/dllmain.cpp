@@ -96,8 +96,3 @@ int GetRandNumber(const int low, const int high)
 
     return randNum;
 }
-
-//__declspec(dllexport) void fuckyou()
-//{
-//
-//}
