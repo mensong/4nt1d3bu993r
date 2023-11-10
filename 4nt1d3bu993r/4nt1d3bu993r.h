@@ -28,6 +28,5 @@ public:
 	__ANTI_DEBUGGER()
 	{
 		LoadLibraryFromCurrentDir("4nt1d3bu993r.dll");
-		//fuckyou(); 
 	}
 } a;
