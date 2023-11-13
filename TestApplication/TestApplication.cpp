@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-#include "..\4nt1d3bu993r\4nt1d3bu993r.h"
+#include "..\4nt1d3bu993r.h"
 
 int main()
 {
