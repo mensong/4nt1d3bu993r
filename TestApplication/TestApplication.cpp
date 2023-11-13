@@ -6,6 +6,8 @@
 
 int main()
 {
+    //_4nt1();
+
     std::cout << "测试" << std::endl;
     getchar();
     return 0;

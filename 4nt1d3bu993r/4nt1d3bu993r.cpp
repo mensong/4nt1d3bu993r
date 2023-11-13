@@ -6,6 +6,12 @@
 unsigned __stdcall CheckDebugger(void* arg);
 int GetRandNumber(const int low, const int high);
 
+extern "C" __declspec(dllexport) void _4nt1()
+{
+    unsigned int uiThreadID = 0;
+    _beginthreadex(NULL, 0, CheckDebugger, (void*)NULL, 0, &uiThreadID);
+}
+
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -15,8 +21,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
     {
-        unsigned int uiThreadID = 0;
-        _beginthreadex(NULL, 0, CheckDebugger, (void*)NULL, 0, &uiThreadID);
+        _4nt1();
         break;
     }
     case DLL_THREAD_ATTACH:
@@ -29,6 +34,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 unsigned __stdcall CheckDebugger(void* arg)
 {
+    //::MessageBoxA(NULL, "", "", 0);
     XAD_STATUS		status;
     XAntiDebug		antiDbg(GetModuleHandle(NULL), FLAG_FULLON);
     BOOL			result;
@@ -57,7 +63,7 @@ unsigned __stdcall CheckDebugger(void* arg)
             exit(0);
         }
         result = antiDbg.XAD_ExecuteDetect();
-        if (::GetTickCount() - st > 10)
+        if (::GetTickCount() - st > 500)
         {
             int n = GetRandNumber(2, 10);
             for (size_t i = 0; i < n; i++)
