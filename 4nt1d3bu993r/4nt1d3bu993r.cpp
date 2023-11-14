@@ -12,6 +12,7 @@ extern "C" __declspec(dllexport) void _4nt1()
     _beginthreadex(NULL, 0, CheckDebugger, (void*)NULL, 0, &uiThreadID);
 }
 
+#if 0
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -31,6 +32,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
+#endif
 
 unsigned __stdcall CheckDebugger(void* arg)
 {
@@ -60,19 +62,12 @@ unsigned __stdcall CheckDebugger(void* arg)
             {
                 Sleep(1000);
             }
+#ifdef _DEBUG
+            ::MessageBoxA(NULL, "退出:Timeout", "DEBUG", MB_ICONERROR);
+#endif
             exit(0);
         }
         result = antiDbg.XAD_ExecuteDetect();
-        if (::GetTickCount() - st > 500)
-        {
-            int n = GetRandNumber(2, 10);
-            for (size_t i = 0; i < n; i++)
-            {
-                Sleep(1000);
-            }
-            exit(0);
-        }
-
         //printf("result = %s\n", result ? "true" : "false");
 
         if (result)
@@ -82,6 +77,9 @@ unsigned __stdcall CheckDebugger(void* arg)
             {
                 Sleep(1000);
             }
+#ifdef _DEBUG
+            ::MessageBoxA(NULL, "检测到调试", "DEBUG", MB_ICONERROR);
+#endif
             exit(0);
         }
 
